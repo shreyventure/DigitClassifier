@@ -1,0 +1,1 @@
+{"inputUnits":[56,56,4],"outputUnits":4,"inputs":{"image":{"dtype":"array","min":0,"max":255}},"outputs":{"target":{"dtype":"string","min":0,"max":1,"uniqueValues":["zero","one","two","three"],"legend":{"zero":[1,0,0,0],"one":[0,1,0,0],"two":[0,0,1,0],"three":[0,0,0,1]}}},"isNormalized":true}
