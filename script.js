@@ -50,7 +50,7 @@ let input;
 function classifyCanvas() {
   input = createGraphics(28, 28);
   input.copy(canvas, 0, 0, width, height, 0, 0, 28, 28);
-  //   image(input, 0, 0);
+  // image(input, 0, 0);
   nn.classify({ image: input }, (error, result) => {
     if (error) {
       console.error(error);

@@ -10,7 +10,8 @@ let zeros = [],
   nines = [];
 
 function preload() {
-  for (let i = 1; i <= 100; i++) {
+  console.log("Loading Data...");
+  for (let i = 1; i <= 140; i++) {
     zeros[i - 1] = loadImage(`data/zeros/zero (${i}).jpg`);
     ones[i - 1] = loadImage(`data/ones/one (${i}).jpg`);
     twos[i - 1] = loadImage(`data/twos/two (${i}).jpg`);
@@ -22,18 +23,31 @@ function preload() {
     eights[i - 1] = loadImage(`data/eights/eight (${i}).jpg`);
     nines[i - 1] = loadImage(`data/nines/nine (${i}).jpg`);
   }
+  console.log("Data Loaded...");
 }
 let canvas;
 let textP;
 let nn;
 function setup() {
+  console.log("Init NN");
   nn = ml5.neuralNetwork({
     inputs: [56, 56, 4],
     task: "imageClassification",
     debug: true,
   });
+  // const modelDetails = {
+  //   model: "model/model.json",
+  //   metadata: "model/model_meta.json",
+  //   weights: "model/model.weights.bin",
+  // };
+  // nn.load(modelDetails, () => {
+  //   console.log("Model Loaded!");
+  //   trainModel();
+  // });
+  console.log("Init NN, done!");
 
-  for (let i = 0; i < 100; i++) {
+  // function trainModel() {
+  for (let i = 0; i < 140; i++) {
     nn.addData({ image: zeros[i] }, { target: "zero" });
     nn.addData({ image: ones[i] }, { target: "one" });
     nn.addData({ image: twos[i] }, { target: "two" });
@@ -45,13 +59,14 @@ function setup() {
     nn.addData({ image: eights[i] }, { target: "eight" });
     nn.addData({ image: nines[i] }, { target: "nine" });
   }
-
+  console.log("added data");
   nn.normalizeData();
-
+  console.log("normalized");
+  console.log("Training...");
   nn.train(
     {
-      epochs: 70,
-      batchSize: 50,
+      epochs: 200,
+      batchSize: 70,
     },
     finishedTraining
   );
@@ -60,4 +75,5 @@ function setup() {
     nn.save("model");
     console.log("Model saved!");
   }
+  // }
 }
